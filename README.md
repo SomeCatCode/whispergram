@@ -1,4 +1,3 @@
-telethon
 # Whispergram
 
 This Docker container project is used to transcribe voice messages from Telegram chats locally with the help of OpenAI's Whisper and automatically post the text transcriptions in the corresponding Telegram chat.

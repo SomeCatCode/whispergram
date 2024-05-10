@@ -1,0 +1,5 @@
+services:
+  app:
+    container_name: whispergram
+    build: .
+    env_file: .env

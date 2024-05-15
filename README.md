@@ -1,11 +1,10 @@
 # Whispergram
 
-This Docker container project is used to transcribe voice messages from Telegram chats locally with the help of OpenAI's Whisper and automatically post the text transcriptions in the corresponding Telegram chat.
-Ideal for anyone who is annoyed by the flood of voice messages.
+Whispergram is a Docker container project that transcribes voice messages from Telegram chats locally with the help of OpenAI's Whisper and automatically posts the text transcriptions in the corresponding Telegram chat. Ideal for anyone who is annoyed by the flood of voice messages.
 
 ## Prerequisites
 - Docker + Docker Compose
-- Telegram API ID and Hash -> ([text](https://core.telegram.org/api/obtaining_api_id))
+- Telegram API ID and Hash -> ([Instruction of obtaining the credentials](https://core.telegram.org/api/obtaining_api_id))
 
 ## Fast Start
 ```ps
@@ -28,16 +27,15 @@ docker compose up -d
 ```
 
 ## Functionality
-The container listens for new voice messages in a specified Telegram chat. Each received voice message is transcribed using Whisper, and the resulting text transcription is automatically posted as a reply in the same chat.
+The container listens for new voice messages in a specified Telegram chat. Each received voice message is transcribed with Whisper, and the resulting text transcription is automatically posted as a reply in the same chat.
 
-## How can I get my Telegram ID
-If TELEGRAM_USER_ID is set to 0, you can write "?ID?" (without the quotes) in any room. and you get your own ID + that of the room/chat-partners.
-!! Attention as long as TELEGRAM_USER_ID is set to 0 this is triggered for every person who writes "?ID?"!! 
-After TELEGRAM_USER_ID has been set to your own ID, the command is only triggered for yourself
+## How do I get my Telegram ID?
+If TELEGRAM_USER_ID is set to 0, you can write "?ID?" (without quotes) in each room. You will then receive your own ID and that of the room/chat partner.
+!! Attention: As long as TELEGRAM_USER_ID is set to 0, this command is triggered for every person who writes "?ID?". As soon as TELEGRAM_USER_ID is set to your own ID, the command is only triggered for yourself.
 
-## How to Exclude Channel
-"?ID?" (without the quotes) in a room. Then write the received room/user ID under the variable BLOCKED_USERS_CHANNELS. Multiple ids are separated with ,
-Note: Users have a positive ID and chat rooms have a negative one
+## How to exclude channels and users
+Write "?ID?" (without quotes) in a room. Then write the room/user ID received under the variable BLOCKED_USERS_CHANNELS. Multiple IDs are separated by commas.
+Note: Users have a positive ID and chat rooms a negative one.
 
 ## License
 This project is licensed under the MIT licence. Details can be found in the LICENSE file.

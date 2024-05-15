@@ -26,10 +26,18 @@ nano .env
 # start the container - all done
 docker compose up -d
 ```
-Ersetze dein_bot_token und deine_chat_id durch deine tatsächlichen Telegram-API-Zugangsdaten.
 
 ## Functionality
 The container listens for new voice messages in a specified Telegram chat. Each received voice message is transcribed using Whisper, and the resulting text transcription is automatically posted as a reply in the same chat.
+
+## How can I get my Telegram ID
+If TELEGRAM_USER_ID is set to 0, you can write "?ID?" (without the quotes) in any room. and you get your own ID + that of the room/chat-partners.
+!! Attention as long as TELEGRAM_USER_ID is set to 0 this is triggered for every person who writes "?ID?"!! 
+After TELEGRAM_USER_ID has been set to your own ID, the command is only triggered for yourself
+
+## How to Exclude Channel
+"?ID?" (without the quotes) in a room. Then write the received room/user ID under the variable BLOCKED_USERS_CHANNELS. Multiple ids are separated with ,
+Note: Users have a positive ID and chat rooms have a negative one
 
 ## License
 This project is licensed under the MIT licence. Details can be found in the LICENSE file.

@@ -37,5 +37,17 @@ If TELEGRAM_USER_ID is set to 0, you can write "?ID?" (without quotes) in each r
 Write "?ID?" (without quotes) in a room. Then write the room/user ID received under the variable BLOCKED_USERS_CHANNELS. Multiple IDs are separated by commas.
 Note: Users have a positive ID and chat rooms a negative one.
 
+## Update
+```ps
+# change into the dir
+cd whispergram
+
+# pull 
+git pull origin main
+
+# start with build flag
+docker compose up -d --build
+```
+
 ## License
 This project is licensed under the MIT licence. Details can be found in the LICENSE file.

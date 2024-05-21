@@ -51,7 +51,7 @@ async def handler(event):
 
     if event.message.voice:
         # Überprüfen, ob der Absender in der deaktivierten Liste ist
-        if sender_id in blocked_users_and_channels or event.chat_id in blocked_users_and_channels:
+        if event.chat_id in blocked_users_and_channels:
             logging.info(f"Autotranscription disabled for user/channel: {sender_id}")
             return
 

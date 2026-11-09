@@ -1,3 +1,6 @@
 __pycache__
 anon.session
 *.oga
+.env
+.git
+.github

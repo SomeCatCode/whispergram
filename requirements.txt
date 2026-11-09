@@ -1,7 +1,1 @@
-numba
-numpy
-torch
-tqdm
-more-itertools
-tiktoken
-telethon
+telethon>=1.36,<2

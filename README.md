@@ -27,14 +27,16 @@ docker compose up -d
 ```
 
 ## Functionality
-The container listens for new voice messages in a specified Telegram chat. Each received voice message is transcribed with Whisper, and the resulting text transcription is automatically posted as a reply in the same chat.
+The container listens for new voice messages and video notes in all Telegram chats of your account, including your own messages. Each received message is transcribed with Whisper, and the resulting text transcription is automatically posted as a reply in the same chat. Use BLOCKED_USERS_CHANNELS to exclude chats or users.
+
+The Whisper model is downloaded on the first start and stored in the Docker volume `whisper-models`.
 
 ## How do I get my Telegram ID?
-If TELEGRAM_USER_ID is set to 0, you can write "?ID?" (without quotes) in each room. You will then receive your own ID and that of the room/chat partner.
+If TELEGRAM_USER_ID is set to 0 (default in .env.sample), you can write "?ID?" (without quotes) in each room. You will then receive your own ID and that of the room/chat partner.
 !! Attention: As long as TELEGRAM_USER_ID is set to 0, this command is triggered for every person who writes "?ID?". As soon as TELEGRAM_USER_ID is set to your own ID, the command is only triggered for yourself.
 
 ## How to exclude channels and users
-Write "?ID?" (without quotes) in a room. Then write the room/user ID received under the variable BLOCKED_USERS_CHANNELS. Multiple IDs are separated by commas.
+Write "?ID?" (without quotes) in a room. Then write the received chat ID or user ID under the variable BLOCKED_USERS_CHANNELS. Multiple IDs are separated by commas. A chat ID blocks the whole chat. A user ID blocks the voice messages of this user in all chats.
 Note: Users have a positive ID and chat rooms a negative one.
 
 ## Update

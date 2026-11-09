@@ -6,6 +6,7 @@ import tempfile
 
 import whisper
 from telethon import TelegramClient, events
+from telethon.errors import AuthKeyNotFound
 from telethon.sessions import StringSession
 
 logging.basicConfig(level=logging.INFO)
@@ -106,17 +107,23 @@ async def handler(event):
         logging.exception(f"Sending transcription failed for message {message.id}")
 
 
+async def check_session(client):
+    await client.connect()
+    return await client.is_user_authorized()
+
+
 async def main():
     client = TelegramClient(StringSession(api_session), api_id, api_hash)
-    await client.connect()
     try:
-        authorized = await asyncio.wait_for(client.is_user_authorized(), timeout=SESSION_CHECK_TIMEOUT)
+        authorized = await asyncio.wait_for(check_session(client), timeout=SESSION_CHECK_TIMEOUT)
     except asyncio.TimeoutError:
         await client.disconnect()
         fail(
             f"Telegram did not answer within {SESSION_CHECK_TIMEOUT} seconds. TELEGRAM_SESSION may be invalid.",
             "Please create a new one with docker compose run -it app python3 /app/generate_session.py",
         )
+    except AuthKeyNotFound:
+        authorized = False
     if not authorized:
         await client.disconnect()
         fail(

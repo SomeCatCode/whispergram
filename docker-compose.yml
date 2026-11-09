@@ -1,5 +1,14 @@
 services:
   app:
     container_name: whispergram
-    build: .
+    build:
+      context: .
+      args:
+        WHISPER_VERSION: ${WHISPER_VERSION:-20250625}
     env_file: .env
+    restart: unless-stopped
+    volumes:
+      - whisper-models:/models
+
+volumes:
+  whisper-models:

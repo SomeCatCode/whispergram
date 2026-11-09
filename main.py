@@ -12,6 +12,7 @@ logging.basicConfig(level=logging.INFO)
 
 MAX_MESSAGE_LENGTH = 4096
 REPLY_PREFIX = "Autotranscription: "
+SESSION_CHECK_TIMEOUT = 60
 
 
 def fail(*messages):
@@ -108,7 +109,15 @@ async def handler(event):
 async def main():
     client = TelegramClient(StringSession(api_session), api_id, api_hash)
     await client.connect()
-    if not await client.is_user_authorized():
+    try:
+        authorized = await asyncio.wait_for(client.is_user_authorized(), timeout=SESSION_CHECK_TIMEOUT)
+    except asyncio.TimeoutError:
+        await client.disconnect()
+        fail(
+            f"Telegram did not answer within {SESSION_CHECK_TIMEOUT} seconds. TELEGRAM_SESSION may be invalid.",
+            "Please create a new one with docker compose run -it app python3 /app/generate_session.py",
+        )
+    if not authorized:
         await client.disconnect()
         fail(
             "TELEGRAM_SESSION is invalid or expired.",
